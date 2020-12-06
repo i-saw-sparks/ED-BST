@@ -10,7 +10,7 @@ int main() {
     std::uniform_int_distribution<int> distribution(0, 100000);
     auto dice = bind(distribution, generator);
 
-    BST<int> arbol;
+    BST<int> arbol, arbol2;
     int value;
 
 
@@ -36,5 +36,20 @@ int main() {
     arbol.parsePostOrder();
     std::cout<<std::endl<<std::endl;
 
+
+    arbol2 = arbol;
+    std::cout << std::endl << std::endl;
+
+    std::cout << "Recorrido en PreOrder: " << std::endl;
+    arbol2.parsePreOrder();
+    std::cout << std::endl << std::endl;
+
+    std::cout << "Recorrido en InOrder: " << std::endl;
+    arbol2.parseInOrder();
+    std::cout << std::endl << std::endl;
+
+    std::cout << "Recorrido en PostOrder"<<std::endl;
+    arbol2.parsePostOrder();
+    std::cout<<std::endl<<std::endl;
     return 0;
 }

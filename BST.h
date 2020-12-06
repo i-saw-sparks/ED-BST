@@ -60,6 +60,8 @@ private:
 
     void copyAll(const BST<T> &);
 
+    void copy(Position &, const Position&);
+
 public:
 
     BST();
@@ -151,7 +153,6 @@ void BST<T>::insertData(Position& r, const T &arg) {
             insertData(r->getRightChild(), arg);
         }
     }
-
 }
 
 
@@ -278,8 +279,6 @@ void BST<T>::parsePostOrder(BST::Position &r) {
 
 template<class T>
 BST<T> &BST<T>::operator=(const BST &t) {
-    deleteAll();
-
     copyAll(t);
     return *this;
 }
@@ -315,8 +314,24 @@ void BST<T>::deleteAll() {
 }
 
 template<class T>
-void BST<T>::copyAll(const BST<T> &) {
+void BST<T>::copy(BST::Position &r, const BST::Position &rcpy) {
+    r = new Node(*(rcpy->getData()));
 
+    if(rcpy->getLeftChild() != nullptr) {
+        copy(r->getLeftChild(), rcpy->getLeftChild());
+    }
+    if(rcpy->getRightChild() != nullptr) {
+        copy(r->getLeftChild(), rcpy->getRightChild());
+    }
+}
+
+template<class T>
+void BST<T>::copyAll(const BST<T> &tree) {
+    deleteAll();
+    if(tree.root == nullptr){
+        return;
+    }
+    copy(root,tree.root);
 }
 
 
