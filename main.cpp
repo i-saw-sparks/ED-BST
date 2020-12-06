@@ -12,12 +12,17 @@ int main() {
 
     BST<int> arbol;
     int value;
-
-    for (int i = 0; i < 50; ++i) {
+/*
+    for (int i = 0; i < 3; ++i) {
         value = dice();
         std::cout << "Insertando: " << value << std::endl;
         arbol.insertData(value);
     }
+    */
+
+arbol.insertData(2);
+    arbol.insertData(1);
+    arbol.insertData(3);
 
     std::cout << std::endl << std::endl;
 

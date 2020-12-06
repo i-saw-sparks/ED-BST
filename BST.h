@@ -31,7 +31,8 @@ private:
 
         Node *&getRightChild();
 
-        void setData(T *);
+        void setDataPtr(T *);
+        void setData(T &);
 
         void setLeftChild(Node *);
 
@@ -71,7 +72,7 @@ public:
 
     void insertData(const T &);
 
-    void deleteData(const T &);
+    void deleteData(Position&);
 
     T *fetch(Position &);
 
@@ -284,13 +285,33 @@ BST<T> &BST<T>::operator=(const BST &t) {
 }
 
 template<class T>
-void BST<T>::deleteData(const T &) {
-
+void BST<T>::deleteData(BST::Position& pos) {
+    Position aux;
+    if(pos == nullptr){
+        return;
+    }
+    if(isLeaf(pos)){
+        delete pos;
+    }else {
+        if (pos->getLeftChild() != nullptr) {
+            aux = getHighest(pos->getLeftChild());
+            pos->getLeftChild() = nullptr;
+        } else {
+            aux = getLowest(pos->getRightChild());
+            pos->getRightChild() = nullptr;
+        }
+        pos->setData(*(aux->getData()));
+        deleteData(aux);
+    }
 }
 
 template<class T>
 void BST<T>::deleteAll() {
-
+    while(!isLeaf(root)){
+        deleteData(root);
+    }
+    delete root;
+    root = nullptr;
 }
 
 template<class T>
@@ -330,7 +351,12 @@ typename BST<T>::Position &BST<T>::Node::getRightChild() {
 }
 
 template<class T>
-void BST<T>::Node::setData(T *arg) {
+void BST<T>::Node::setData(T &arg) {
+    *data = arg;
+}
+
+template<class T>
+void BST<T>::Node::setDataPtr(T *arg) {
     data = arg;
 }
 
