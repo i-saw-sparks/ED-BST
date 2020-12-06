@@ -10,18 +10,19 @@ int main() {
     std::uniform_int_distribution<int> distribution(0, 100000);
     auto dice = bind(distribution, generator);
 
-    BST<int> arbol, arbol2;
-    int value;
+    BST<int> arbol;
+    int value, cantidad;
 
+    std::cout<<"Ingrese la cantidad de numeros que desea ingresar: ";
+    std::cin>>cantidad;
+    std::cout<<std::endl<<std::endl;
 
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < cantidad; ++i) {
         value = dice();
         std::cout << "Insertando: " << value << std::endl;
         arbol.insertData(value);
     }
-
-
-
+    
     std::cout << std::endl << std::endl;
 
     std::cout << "Recorrido en PreOrder: " << std::endl;
@@ -36,20 +37,6 @@ int main() {
     arbol.parsePostOrder();
     std::cout<<std::endl<<std::endl;
 
-
-    arbol2 = arbol;
-    std::cout << std::endl << std::endl;
-
-    std::cout << "Recorrido en PreOrder: " << std::endl;
-    arbol2.parsePreOrder();
-    std::cout << std::endl << std::endl;
-
-    std::cout << "Recorrido en InOrder: " << std::endl;
-    arbol2.parseInOrder();
-    std::cout << std::endl << std::endl;
-
-    std::cout << "Recorrido en PostOrder"<<std::endl;
-    arbol2.parsePostOrder();
-    std::cout<<std::endl<<std::endl;
-    return 0;
+    std::cout<<"Altura del subarbol izquierdo:  "<<arbol.getLeftHeight()<<std::endl;
+    std::cout<<"Altura del subarbol derecho:  "<<arbol.getRightHeight();
 }

@@ -28,7 +28,6 @@ private:
         T *getData() const;
 
         Node *&getLeftChild();
-
         Node *&getRightChild();
 
         void setDataPtr(T *);
@@ -49,51 +48,42 @@ private:
     Position& findData(Position& , const T &);
 
     Position& getLowest(Position& );
-
     Position& getHighest(Position& );
 
     void parsePreOrder(Position& );
-
     void parseInOrder(Position& );
-
     void parsePostOrder(Position& );
 
     void copyAll(const BST<T> &);
-
     void copy(Position &, const Position&);
 
 public:
 
     BST();
-
     BST(const BST &);
-
     ~BST();
 
     bool isEmpty() const;
 
     void insertData(const T &);
-
     void deleteData(Position&);
 
     T *fetch(Position &);
 
     int getHeight(Position &);
+    int getHeight();
+    int getRightHeight();
+    int getLeftHeight();
 
     Position &findaData(const T &);
 
     Position &getLowest();
-
     Position &getHighest();
 
     bool isLeaf(Position &) const;
 
-    int getHeight();
-
     void parsePreOrder();
-
     void parseInOrder();
-
     void parsePostOrder();
 
     void deleteAll();
@@ -215,6 +205,16 @@ bool BST<T>::isLeaf(BST::Position &r) const {
 template<class T>
 int BST<T>::getHeight() {
     return getHeight(root);
+}
+
+template<class T>
+int BST<T>::getRightHeight() {
+    return getHeight(root->getRightChild());
+}
+
+template<class T>
+int BST<T>::getLeftHeight() {
+    return getHeight(root->getLeftChild());
 }
 
 template<class T>
