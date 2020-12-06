@@ -185,7 +185,7 @@ typename BST<T>::Position &BST<T>::getLowest() {
 
 template<class T>
 typename BST<T>::Position & BST<T>::getLowest(BST::Position& r) {
-    if (r == nullptr || r->getRightChild() == nullptr) {
+    if (r == nullptr || r->getLeftChild() == nullptr) {
         return r;
     }
 
@@ -292,26 +292,26 @@ void BST<T>::deleteData(BST::Position& pos) {
     }
     if(isLeaf(pos)){
         delete pos;
+        pos = nullptr;
     }else {
         if (pos->getLeftChild() != nullptr) {
             aux = getHighest(pos->getLeftChild());
-            pos->getLeftChild() = nullptr;
+            pos->setData(*(aux->getData()));
+            deleteData(getHighest(pos->getLeftChild()));
         } else {
             aux = getLowest(pos->getRightChild());
-            pos->getRightChild() = nullptr;
+            pos->setData(*(aux->getData()));
+            deleteData(getLowest(pos->getRightChild()));
         }
-        pos->setData(*(aux->getData()));
-        deleteData(aux);
+
     }
 }
 
 template<class T>
 void BST<T>::deleteAll() {
-    while(!isLeaf(root)){
+    while(root != nullptr){
         deleteData(root);
     }
-    delete root;
-    root = nullptr;
 }
 
 template<class T>
